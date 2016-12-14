@@ -62,31 +62,55 @@ ColorizeTagsDirective = ->
     templates = {
         backlog: _.template("""
         <% _.each(tags, function(tag) { %>
+            <% if (tag[1] !== null) { %>
             <span class="tag"
-                <% if (tag[1] !== null) { %>
-                    style="border-left: 5px solid <%- tag[1] %>"
-                <% } %>
-                title="<%- tag[0] %>"><%- tag[0] %></span>
+                  style="border-left: 5px solid <%- tag[1] %>"
+                  title="<%- tag[0] %>">
+                  <%- tag[0] %>
+            </span>
+            <% } %>
+        <% }) %>
+        <% _.each(tags, function(tag) { %>
+            <% if (tag[1] === null) { %>
+            <span class="tag"
+                  title="<%- tag[0] %>">
+                  <%- tag[0] %>
+            </span>
+            <% } %>
         <% }) %>
         """)
         kanban: _.template("""
         <% _.each(tags, function(tag) { %>
+            <% if (tag[1] !== null) { %>
             <a class="kanban-tag"
                 href=""
-                <% if (tag[1] !== null) { %>
-                    style="border-color: <%- tag[1] %>"
-                <% } %>
+                style="border-color: <%- tag[1] %>"
                 title="<%- tag[0] %>" />
+            <% } %>
+        <% }) %>
+        <% _.each(tags, function(tag) { %>
+            <% if (tag[1] === null) { %>
+            <a class="kanban-tag"
+                href=""
+                title="<%- tag[0] %>" />
+            <% } %>
         <% }) %>
         """)
         taskboard: _.template("""
         <% _.each(tags, function(tag) { %>
+            <% if (tag[1] !== null) { %>
             <a class="taskboard-tag"
                 href=""
-                <% if (tag[1] !== null) { %>
-                    style="border-color: <%- tag[1] %>"
-                <% } %>
+                style="border-color: <%- tag[1] %>"
                 title="<%- tag[0] %>" />
+            <% } %>
+        <% }) %>
+        <% _.each(tags, function(tag) { %>
+            <% if (tag[1] === null) { %>
+            <a class="taskboard-tag"
+                href=""
+                title="<%- tag[0] %>" />
+            <% } %>
         <% }) %>
         """)
     }
