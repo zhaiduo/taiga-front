@@ -46,4 +46,6 @@ class TrelloImportController
     onSelectUsers: (users) ->
         console.log "import"
 
+        console.log users.toJS()
+
 angular.module('taigaProjects').controller('TrelloImportCtrl', ['$timeout', "tgTrelloImportService", TrelloImportController])

@@ -25,7 +25,9 @@ class TrelloImportProjectMembersController
     constructor: (@trelloImportService) ->
         @.selectImportUserLightbox = false
         @.warningImportUsers = false
-        @.selectedUsers = []
+        @.selectedUsers = Immutable.List()
+        @.cancelledUsers = Immutable.List()
+
         # console.log @.members
         # @.members = Immutable.fromJS([
         #     {
@@ -39,10 +41,42 @@ class TrelloImportProjectMembersController
         @.searchingUser = user
 
     selectUser: (user) ->
-        @.selectImportUserLightbox = false
 
     beforeSubmitUsers: () ->
-        @.warningImportUsers = true
-        #@.onSubmit({users: @.selectedUsers})
+        if @.selectedUsers.size != @.members.size
+            @.warningImportUsers = true
+        else
+            @.onSubmit({users: @.selectedUsers})
+
+    confirmUser: (trelloUser, taigaUser) ->
+        @.selectImportUserLightbox = false
+
+        user = Immutable.Map()
+
+        user = user.set('trelloUser', trelloUser)
+        user = user.set('taigaUser', taigaUser)
+
+        @.selectedUsers = @.selectedUsers.push(user)
+
+    cleanUser: (member) ->
+        @.cancelledUsers = @.cancelledUsers.push(member.get('id'))
+
+    getSelectedMember: (member) ->
+        return @.selectedUsers.find (it) ->
+            return it.getIn(['trelloUser', 'id']) == member.get('id')
+
+    isMemberSelected: (member) ->
+        return !!@.getSelectedMember(member)
+
+    getUser: (user) ->
+        userSelected = @.getSelectedMember(user)
+
+        if userSelected
+            return userSelected.get('taigaUser')
+
+        if !userSelected
+            return user.get('user')
+
+        return null
 
 angular.module('taigaProjects').controller('TrelloImportProjectMembersCtrl', TrelloImportProjectMembersController)

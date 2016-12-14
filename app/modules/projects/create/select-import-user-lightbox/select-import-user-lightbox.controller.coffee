@@ -24,11 +24,14 @@ class SelectImportUserLightboxCtrl
     ]
 
     constructor: (@userService, @currentUserService) ->
-        @.user = @currentUserService.getUser()
+
+    start: () ->
+        @.currentUser = @currentUserService.getUser()
+
+        @userService.getContacts(@.currentUser.get('id')).then(@.setContacts.bind(this))
+
         @.mode = 'search'
         @.invalid = false
-
-        @userService.getContacts(@.user.get('id')).then(@.setContacts.bind(this))
 
     setContacts: (contacts) ->
         @.users = contacts
