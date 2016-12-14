@@ -47,6 +47,6 @@
 
     tg-warning-user-import-lightbox.lightbox(
         visible="vm.warningImportUsers"
-        on-confirm="vm.onSubmit({users: vm.selectedUsers})"
+        on-confirm="vm.submit()"
         on-close="vm.warningImportUsers = false"
     )

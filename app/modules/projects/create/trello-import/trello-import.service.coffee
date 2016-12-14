@@ -34,9 +34,9 @@ class TrelloImportService extends taiga.Service
     fetchUsers: (projectId) ->
         @resources.trelloImporter.listUsers(@.token, projectId).then (users) => @.projectUsers = users
 
-    importProject: () ->
+    importProject: (projectId, userBindings) ->
         return new Promise (resolve) =>
-            @resources.trelloImporter.importProject(@.token, @.projectId).then (response) =>
+            @resources.trelloImporter.importProject(@.token, projectId, userBindings, keepExternalReference, isPrivate).then (response) =>
                 @.importedProject = Immutable.fromJS(response.data)
                 resolve(@.importedProject)
 
