@@ -70,11 +70,10 @@ class TrelloImportProjectMembersController
         return null
 
     submit: () ->
-        users = @.selectedUsers.map (it) ->
-            user = Immutable.Map()
-            return user.set(it.getIn(['trelloUser', 'id']), it.getIn(['taigaUser', 'id']))
+        users = Immutable.Map()
 
-        console.log users.toJS()
+        @.selectedUsers.map (it) ->
+            users = users.set(it.getIn(['trelloUser', 'id']), it.getIn(['taigaUser', 'id']))
 
         @.onSubmit({users: users})
 

@@ -47,5 +47,8 @@ class TrelloImportController
         console.log "import"
 
         console.log users.toJS()
+        console.log @.project.toJS()
+
+        # @trelloImportService.importProject(@.project.get('id'), users, @.project.get('keepExternalReference'), @.project.get('is_private'))
 
 angular.module('taigaProjects').controller('TrelloImportCtrl', ['$timeout', "tgTrelloImportService", TrelloImportController])
