@@ -39,4 +39,7 @@ class SelectImportUserLightboxCtrl
     searchUser: () ->
         @.invalid = true
 
+    selectUser: (taigaUser) ->
+        @.onSelectUser({user: @.user, taigaUser: Immutable.fromJS(taigaUser)})
+
 angular.module('taigaProjects').controller('SelectImportUserLightboxCtrl', SelectImportUserLightboxCtrl)
