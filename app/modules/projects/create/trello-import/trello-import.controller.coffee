@@ -18,16 +18,14 @@
 ###
 
 class TrelloImportController
-    constructor: ($timeout, @trelloImportService, @confirm, @translate) ->
+    constructor: (@trelloImportService, @confirm, @translate) ->
         @.step = 'autorization-trello'
         @.project = null
         taiga.defineImmutableProperty @, 'projects', () => return @trelloImportService.projects
         taiga.defineImmutableProperty @, 'members', () => return @trelloImportService.projectUsers
 
-        $timeout () =>
-            #@.step = 'project-members-trello'
-            @.startProjectSelector()
-        , 200
+         #@.step = 'project-members-trello'
+        @.startProjectSelector()
 
     startProjectSelector: () ->
         @.step = 'project-select-trello'
@@ -59,7 +57,6 @@ class TrelloImportController
         return null
 
 angular.module('taigaProjects').controller('TrelloImportCtrl', [
-    '$timeout',
     'tgTrelloImportService',
     '$tgConfirm',
     '$translate',

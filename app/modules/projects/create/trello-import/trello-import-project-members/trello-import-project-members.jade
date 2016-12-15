@@ -5,7 +5,10 @@
     p.process-description(translate="PROJECT.IMPORT.TRELLO.PROCESS_DESCRIPTION")
 
     p.importer-name(translate="PROJECT.IMPORT.TRELLO.TITLE")
-    ul
+
+    .spin(tg-loading="!!!vm.members.size")
+
+    ul(ng-if="vm.members.size")
         li.user-row(tg-repeat="member in vm.members track by member.get('id')")
             .user-info
                 .avatar.empty {{member.get('fullName')[0].toUpperCase()}}
@@ -34,6 +37,7 @@
                     )
 
     button.button.button-green.submit(
+        ng-if="vm.members.size > 0"
         ng-click="vm.beforeSubmitUsers()"
         translate="PROJECT.IMPORT.IMPORT"
     )
