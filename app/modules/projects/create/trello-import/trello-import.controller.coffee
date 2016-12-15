@@ -18,7 +18,7 @@
 ###
 
 class TrelloImportController
-    constructor: ($timeout, @trelloImportService) ->
+    constructor: ($timeout, @trelloImportService, @confirm, @translate) ->
         @.step = 'autorization-trello'
         @.project = null
         taiga.defineImmutableProperty @, 'projects', () => return @trelloImportService.projects
@@ -44,11 +44,23 @@ class TrelloImportController
         @trelloImportService.fetchUsers(@.project.get('id'))
 
     onSelectUsers: (users) ->
+        loader = @confirm.loader('sdfdsfdsfjk dfksj')
+
+        loader.start()
+        loader.update('', @translate.instant('PROJECT.IMPORT.IN_PROGRESS.TITLE'), @translate.instant('PROJECT.IMPORT.IN_PROGRESS.DESCRIPTION'))
+
         @trelloImportService.importProject(
             @.project.get('id'),
             users,
             @.project.get('keepExternalReference'),
             @.project.get('is_private')
-        )
+        ).then(loader.stop)
 
-angular.module('taigaProjects').controller('TrelloImportCtrl', ['$timeout', "tgTrelloImportService", TrelloImportController])
+        return null
+
+angular.module('taigaProjects').controller('TrelloImportCtrl', [
+    '$timeout',
+    'tgTrelloImportService',
+    '$tgConfirm',
+    '$translate',
+    TrelloImportController])
