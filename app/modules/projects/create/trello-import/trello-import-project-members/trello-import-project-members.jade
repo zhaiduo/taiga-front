@@ -11,14 +11,14 @@
     ul(ng-if="vm.members.size")
         li.user-row(tg-repeat="member in vm.members track by member.get('id')")
             .user-info
-                .avatar.empty {{member.get('fullName')[0].toUpperCase()}}
-                span.username {{member.get('fullName')}}
+                .avatar.empty {{member.get('full_name')[0].toUpperCase()}}
+                span.username {{member.get('full_name')}}
 
             .user-actions
                 .taiga-user(ng-if="vm.getUser(member)")
                     .img
                         img(tg-avatar="vm.getUser(member)")
-                    | {{vm.getUser(member).get('fullname')}}
+                    | {{vm.getUser(member).get('full_name')}}
 
                 .check-selected(ng-if="vm.isMemberSelected(member)")
                     tg-svg(svg-icon="icon-check-empty")

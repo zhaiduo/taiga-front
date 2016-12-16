@@ -18,7 +18,7 @@
 ###
 
 class TrelloImportController
-    constructor: (@trelloImportService, @confirm, @translate) ->
+    constructor: (@trelloImportService, @confirm, @translate, @projectUrl, @location) ->
         @.step = 'autorization-trello'
         @.project = null
         taiga.defineImmutableProperty @, 'projects', () => return @trelloImportService.projects
@@ -52,7 +52,9 @@ class TrelloImportController
             users,
             @.project.get('keepExternalReference'),
             @.project.get('is_private')
-        ).then(loader.stop)
+        ).then (project) =>
+            loader.stop()
+            @location.url(@projectUrl.get(project))
 
         return null
 
@@ -60,4 +62,6 @@ angular.module('taigaProjects').controller('TrelloImportCtrl', [
     'tgTrelloImportService',
     '$tgConfirm',
     '$translate',
+    '$projectUrl',
+    '$location',
     TrelloImportController])

@@ -20,6 +20,7 @@
 ImportProjectDirective = () ->
 
     link = (scope, el, attr, ctrl) ->
+        ctrl.start()
 
     return {
         link: link,

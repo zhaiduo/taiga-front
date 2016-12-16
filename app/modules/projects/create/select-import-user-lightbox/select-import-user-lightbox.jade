@@ -3,7 +3,7 @@ tg-lightbox-close(on-close="vm.onClose()")
 .form(ng-if="vm.visible")
     h2.title(translate="PROJECT.IMPORT.WHO_IS")
 
-    p.candidate-user {{vm.user.get('fullName')}}
+    p.candidate-user {{vm.user.get('full_name')}}
 
     form(ng-if="vm.mode == 'mail'", ng-submit="vm.searchUser()")
         fieldset

@@ -25,9 +25,12 @@ class ImportProjectController
     ]
 
     constructor: (@trelloService, @location, @window) ->
+
+    start: ->
         @.from = null
         verifyCode = @location.search().oauth_verifier
         token = @location.search().token
+
         if token
             @.from = "trello"
             @.token = token
@@ -39,7 +42,6 @@ class ImportProjectController
     select: (from) ->
         if from == "trello"
             @trelloService.getAuthUrl().then (url) =>
-                console.log(url)
                 @window.open(url, "_self")
         else
             @.from = from
