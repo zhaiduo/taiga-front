@@ -280,6 +280,13 @@ Medium = ($translate, $confirm, $storage, wysiwygService, animationFrame, tgLoad
 
             return
 
+        $scope.clipping = (e) ->
+            e.preventDefault() if e
+
+            alert("ok")
+
+            return
+
         $scope.cancel = (e) ->
             e.preventDefault() if e
 
@@ -488,11 +495,11 @@ Medium = ($translate, $confirm, $storage, wysiwygService, animationFrame, tgLoad
             mediumInstance.subscribe "editableClick", (e) ->
                 r = new RegExp('^(?:[a-z]+:)?//', 'i')
 
-                if e.target.href 
+                if e.target.href
                     if r.test(e.target.getAttribute('href')) || e.target.getAttribute('target') == '_blank'
                         e.stopPropagation()
-                        window.open(e.target.href)                                                 
-                    else 
+                        window.open(e.target.href)
+                    else
                         $location.url(e.target.href)
 
             mediumInstance.subscribe 'editableDrop', (event) ->
@@ -521,7 +528,7 @@ Medium = ($translate, $confirm, $storage, wysiwygService, animationFrame, tgLoad
                 wysiwygCodeHightlighterService.addHightlighter(mediumInstance.elements[0])
                 refreshCodeBlocks(mediumInstance)
 
-        $(editorMedium[0]).on 'mousedown', (e) -> 
+        $(editorMedium[0]).on 'mousedown', (e) ->
             if e.target.href
                 e.preventDefault()
                 e.stopPropagation()
@@ -529,7 +536,7 @@ Medium = ($translate, $confirm, $storage, wysiwygService, animationFrame, tgLoad
                 $scope.$applyAsync () ->
                     if !$scope.editMode
                         setEditMode(true)
-                        refreshCodeBlocks(mediumInstance)                   
+                        refreshCodeBlocks(mediumInstance)
 
         $(editorMedium[0]).on 'dblclick', 'pre', (e) ->
             $scope.$applyAsync () ->

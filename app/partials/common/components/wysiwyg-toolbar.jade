@@ -35,6 +35,16 @@
             span(translate="COMMON.WYSIWYG.MARKDOWN_HELP")
 
 .tools(ng-class="{\"visible\": editMode}")
+
+    a.e2e-save-editor(
+        ng-class="{disabled: required && !markdown.length}"
+        tg-loading="clipping"
+        href="#",
+        title="粘贴图片",
+        ng-click="clipping($event)"
+    )
+        tg-svg(svg-icon="icon-edit")
+
     a.e2e-save-editor(
         ng-class="{disabled: required && !markdown.length}"
         tg-loading="saving"
