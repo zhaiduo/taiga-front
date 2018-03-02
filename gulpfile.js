@@ -756,3 +756,20 @@ gulp.task("default", function(cb) {
         "watch"
     ], cb);
 });
+
+//https://www.browsersync.io/docs/options
+var browserSync = require('browser-sync').create();
+gulp.task('media', function() {
+  browserSync.init({
+    server: {
+      baseDir: "../taiga-back/media/",
+      directory: true,
+      index: "index.html",
+      routes: {
+        "/media": "../taiga-back/media/"
+      }
+    },
+    port: 8081,
+  });
+});
+
