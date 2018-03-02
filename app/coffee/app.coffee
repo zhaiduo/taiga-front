@@ -713,6 +713,9 @@ i18nInit = (lang, $translate) ->
     # i18n - moment.js
     moment.locale(lang)
 
+    if (lang == 'zh-hans')
+        lang = 'zh-cn'
+
     if (lang != 'en') # en is the default, the file doesn't exist
         ljs.load "/#{window._version}/locales/moment-locales/" + lang + ".js"
 
